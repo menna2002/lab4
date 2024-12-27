@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<launch>
+  <!-- Include the Gazebo empty world launch file -->
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="paused" value="false" />
+    <arg name="use_sim_time" value="true" />
+    <arg name="gui" value="true" />
+    <arg name="recording" value="false" />
+    <arg name="debug" value="false" />
+    <arg name="world_name" value="$(find lab_4)/worlds/my_custom_world.world"/>
+  </include>
+
+  <!-- Load the robot description -->
+  <param name="robot_description" command="$(find xacro)/xacro '$(find lab_4)/urdf/my_robot.xacro'" />
+
+  <!-- Spawn the robot model in Gazebo -->
+  <node
+    name="spawn_urdf"
+    pkg="gazebo_ros"
+    type="spawn_model"
+    args="-param robot_description -urdf -model my_robot"
+    output="screen" />
+</launch>
+
